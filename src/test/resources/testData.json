@@ -1,0 +1,37 @@
+{
+  "registration": {
+    "validUser": {
+      "email": "iamthisemai33l@gmail.com",
+      "password": "Password@^9876",
+      "description": "A user with valid credentials for a first-time successful registration."
+    },
+    "userWithInvalidEmailFormat": {
+      "email": "invalidEmail",
+      "password": "Password@^9876",
+      "description": "A user profile with a syntactically incorrect email for registration."
+    },
+    "userWithWeakPassword": {
+      "email": "iamthisemail@gmail.com",
+      "password": "mynotsafepassword",
+      "description": "A user with a password that is too weak."
+    },
+    "alreadyRegisteredUser": {
+      "email": "t6uvw6ua@mozmail.com",
+      "password": ".ftqR3Yy2rW4kT!",
+      "description": "A user who is already registered, to test duplicate registration failure."
+    }
+  },
+
+  "login": {
+
+    "alreadyRegisteredUser": {
+      "email": "t6uvw6ua@mozmail.com",
+      "password": ".ftqR3Yy2rW4kT!",
+      "description": "A user who is already registered, to test valid login"
+    }
+
+
+
+  }
+
+}
