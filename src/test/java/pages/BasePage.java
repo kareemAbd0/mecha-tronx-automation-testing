@@ -18,11 +18,11 @@ public class BasePage {
     static final Logger log = getLogger(lookup().lookupClass());
     WebDriver driver;
     WebDriverWait wait;
-    int timeout = 3;
+    int timeout = 5;
 
 
-    public BasePage(String browser) {
-        driver = WebDriverManager.getInstance(browser).create();
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
         //short implicit wait
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         //explicit wait

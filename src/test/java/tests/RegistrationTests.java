@@ -2,17 +2,25 @@ package tests;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.LoginRegisterPopUp;
 
 import java.io.File;
 import java.io.IOException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class RegistrationTests extends BaseTest {
+public class RegistrationTests {
 
     private static JsonNode registrationData;
+
+    protected LoginRegisterPopUp loginRegisterPopUp;
+    private WebDriver driver;
 
     @BeforeClass
     public static void loadTestData() throws IOException {
@@ -22,15 +30,38 @@ public class RegistrationTests extends BaseTest {
         registrationData = testData.get("registration");
     }
 
+
+    @BeforeMethod
+    public void setup() {
+        driver = WebDriverManager.getInstance("chrome").create();
+        loginRegisterPopUp = new LoginRegisterPopUp(driver);
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        driver.quit();
+    }
+
+//    @Test
+//    public void testValidRegister() {
+//        JsonNode validUser = registrationData.get("validUser");
+//        loginRegisterPopUp.registerWith(validUser.get("email").asText(), validUser.get("password").asText());
+//        assertThat(loginRegisterPopUp.isRegisterSuccessful()).isTrue();
+//    }
+
+
+
     @Test
     public void testIsPasswordRequired() {
-        loginRegisterPopUp.registerWith(registrationData.get("validUser").get("email").asText(), "");
+        JsonNode validUser = registrationData.get("validUser");
+        loginRegisterPopUp.registerWith(validUser.get("email").asText(), "");
         assertThat(loginRegisterPopUp.isRegisterSuccessful()).isFalse();
     }
 
     @Test
     public void testIsEmailRequired() {
-        loginRegisterPopUp.registerWith("", registrationData.get("validUser").get("password").asText());
+        JsonNode validUser = registrationData.get("validUser");
+        loginRegisterPopUp.registerWith("", validUser.get("password").asText());
         assertThat(loginRegisterPopUp.isRegisterSuccessful()).isFalse();
     }
 
@@ -54,4 +85,5 @@ public class RegistrationTests extends BaseTest {
         loginRegisterPopUp.registerWith(alreadyRegisteredUser.get("email").asText(), alreadyRegisteredUser.get("password").asText());
         assertThat(loginRegisterPopUp.isRegisterSuccessful()).isFalse();
     }
+
 }

@@ -28,6 +28,12 @@
       "email": "t6uvw6ua@mozmail.com",
       "password": ".ftqR3Yy2rW4kT!",
       "description": "A user who is already registered, to test valid login"
+    },
+    "incorrectPasswordForRegisteredEmail": {
+      "email": "t6uvw6ua@mozmail.com",
+      "password": ".ftqR3Yy2sssrW4kT!",
+      "description": "logging in with an incorrect password associated with a registered email"
+
     }
 
 
