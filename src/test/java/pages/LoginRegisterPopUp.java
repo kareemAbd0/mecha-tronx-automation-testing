@@ -49,13 +49,12 @@ public class LoginRegisterPopUp extends BasePage{
         }
     }
 
-    public boolean isLoginErrorDispalyed(){
+    public boolean isLoginErrorDisplayed(){
         return isDisplayed(LoginError);
     }
 
-    public String GetErrorText(){
-        String errorText = find(LoginError).getText();
-        return errorText;
+    public String getErrorText(){
+        return getText(LoginError);
     }
 
 

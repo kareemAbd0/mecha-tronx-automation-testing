@@ -61,8 +61,8 @@ public class LoginTests {
         String email = incorrectPassword.get("email").asText();
         String password = incorrectPassword.get("password").asText();
         loginRegisterPopUp.loginWith(email, password);
-        assertThat(loginRegisterPopUp.isLoginErrorDispalyed()).isTrue();
-        assertThat(loginRegisterPopUp.GetErrorText()).isEqualTo("Error: The password you entered for the email address "+
+        assertThat(loginRegisterPopUp.isLoginErrorDisplayed()).isTrue();
+        assertThat(loginRegisterPopUp.getErrorText()).isEqualTo("Error: The password you entered for the email address "+
                 email+ " is incorrect. Lost your password?");
 
     }

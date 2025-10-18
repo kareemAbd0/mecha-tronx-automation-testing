@@ -59,8 +59,12 @@ public class BasePage {
         type(find(element), text);
     }
 
-    public void getText(WebElement element) {
-        element.getText();
+    public String getText(WebElement element) {
+       return element.getText();
+    }
+
+    public String getText(By locator) {
+        return getText(find(locator));
     }
 
     public boolean isDisplayed(WebElement element) {
