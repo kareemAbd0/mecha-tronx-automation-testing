@@ -3,10 +3,8 @@ package pages;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import static java.lang.invoke.MethodHandles.lookup;
 import static org.slf4j.LoggerFactory.getLogger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -59,6 +57,10 @@ public class BasePage {
 
     public void type(By element, String text) {
         type(find(element), text);
+    }
+
+    public void getText(WebElement element) {
+        element.getText();
     }
 
     public boolean isDisplayed(WebElement element) {

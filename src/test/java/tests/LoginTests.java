@@ -34,11 +34,12 @@ public class LoginTests {
     public void setup() {
         driver = WebDriverManager.getInstance("chrome").create();
         loginRegisterPopUp = new LoginRegisterPopUp(driver);
-        homePage = new HomePage(driver,"non visiting");
+        loginRegisterPopUp.visitPage();
+        homePage = new HomePage(driver);
     }
 
     @AfterMethod
-    public void tearDown() {
+    public void tearDown(){
         driver.quit();
     }
 
@@ -46,9 +47,24 @@ public class LoginTests {
     public void testValidLoginWithRegisteredUser() {
         JsonNode validUser = loginData.get("alreadyRegisteredUser");
         String email = validUser.get("email").asText();
-        loginRegisterPopUp.loginWith(email, validUser.get("password").asText());
+        String password = validUser.get("password").asText();
+        loginRegisterPopUp.loginWith(email, password);
         int atIndex = email.indexOf("@");
         String accountName =  email.substring(0, atIndex);
-        assertThat(homePage.returnAccountButtonText()).isEqualTo(accountName);
+        assertThat(homePage.isAccountTitleDisplayed()).isTrue();
+        assertThat(homePage.getAccountTitleText()).isEqualTo(accountName);
     }
+
+    @Test
+    public void testIncorrectPassword() {
+        JsonNode incorrectPassword = loginData.get("incorrectPasswordForRegisteredEmail");
+        String email = incorrectPassword.get("email").asText();
+        String password = incorrectPassword.get("password").asText();
+        loginRegisterPopUp.loginWith(email, password);
+        assertThat(loginRegisterPopUp.isLoginErrorDispalyed()).isTrue();
+        assertThat(loginRegisterPopUp.GetErrorText()).isEqualTo("Error: The password you entered for the email address "+
+                email+ " is incorrect. Lost your password?");
+
+    }
+
 }

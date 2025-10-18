@@ -35,6 +35,7 @@ public class RegistrationTests {
     public void setup() {
         driver = WebDriverManager.getInstance("chrome").create();
         loginRegisterPopUp = new LoginRegisterPopUp(driver);
+        loginRegisterPopUp.visitPage();
     }
 
     @AfterMethod
@@ -45,44 +46,53 @@ public class RegistrationTests {
 //    @Test
 //    public void testValidRegister() {
 //        JsonNode validUser = registrationData.get("validUser");
-//        loginRegisterPopUp.registerWith(validUser.get("email").asText(), validUser.get("password").asText());
+//        String email = validUser.get("email").asText();
+//        String password = validUser.get("password").asText();
+//        loginRegisterPopUp.registerWith(email, password);
 //        assertThat(loginRegisterPopUp.isRegisterSuccessful()).isTrue();
 //    }
-
 
 
     @Test
     public void testIsPasswordRequired() {
         JsonNode validUser = registrationData.get("validUser");
-        loginRegisterPopUp.registerWith(validUser.get("email").asText(), "");
+        String email = validUser.get("email").asText();
+        loginRegisterPopUp.registerWith(email, "");
         assertThat(loginRegisterPopUp.isRegisterSuccessful()).isFalse();
     }
 
     @Test
     public void testIsEmailRequired() {
         JsonNode validUser = registrationData.get("validUser");
-        loginRegisterPopUp.registerWith("", validUser.get("password").asText());
+        String password = validUser.get("password").asText();
+        loginRegisterPopUp.registerWith("", password);
         assertThat(loginRegisterPopUp.isRegisterSuccessful()).isFalse();
     }
 
     @Test
     void testInvalidEmail() {
         JsonNode invalidEmailUser = registrationData.get("userWithInvalidEmailFormat");
-        loginRegisterPopUp.registerWith(invalidEmailUser.get("email").asText(), invalidEmailUser.get("password").asText());
+        String email = invalidEmailUser.get("email").asText();
+        String password = invalidEmailUser.get("password").asText();
+        loginRegisterPopUp.registerWith(email, password);
         assertThat(loginRegisterPopUp.isRegisterSuccessful()).isFalse();
     }
 
     @Test
     void testWeakPassword() {
         JsonNode weakPasswordUser = registrationData.get("userWithWeakPassword");
-        loginRegisterPopUp.registerWith(weakPasswordUser.get("email").asText(), weakPasswordUser.get("password").asText());
+        String email = weakPasswordUser.get("email").asText();
+        String password = weakPasswordUser.get("password").asText();
+        loginRegisterPopUp.registerWith(email, password);
         assertThat(loginRegisterPopUp.isRegisterSuccessful()).isFalse();
     }
 
     @Test
     void testAlreadyRegisteredEmail() {
         JsonNode alreadyRegisteredUser = registrationData.get("alreadyRegisteredUser");
-        loginRegisterPopUp.registerWith(alreadyRegisteredUser.get("email").asText(), alreadyRegisteredUser.get("password").asText());
+        String email = alreadyRegisteredUser.get("email").asText();
+        String password = alreadyRegisteredUser.get("password").asText();
+        loginRegisterPopUp.registerWith(email, password);
         assertThat(loginRegisterPopUp.isRegisterSuccessful()).isFalse();
     }
 

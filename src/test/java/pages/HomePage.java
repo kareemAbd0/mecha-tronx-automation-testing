@@ -8,23 +8,20 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage extends BasePage{
-    By loginRegisterButton = By.xpath("//a[@title='Login']");
+    private final By loginRegisterButton = By.xpath("//a[@title='Login']");
+    By spanAccountTitle = By.className("header-account-title");
 
     public HomePage(WebDriver driver){
         super(driver);
-        visit("https://mecha-tronx.com/");
     }
 
     public HomePage(WebDriver driver, int timeout){
         this(driver);
         this.timeout = timeout;
-
     }
 
-    //if no visit url intialization is needed
-    public  HomePage(WebDriver driver, String nonVisiting){
-        super(driver);
-
+    public void visitPage(){
+        visit("https://mecha-tronx.com/");
     }
 
     public void loginRegisterPopUp(){
@@ -32,15 +29,12 @@ public class HomePage extends BasePage{
     }
 
 
-    public String returnAccountButtonText(){
-        By accountButton = By.className("header-account-title");
-        try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(accountButton));
-        }catch (TimeoutException e){
-            throw new TimeoutException();
-
-        }
-        return find(accountButton).getText();
+    public boolean isAccountTitleDisplayed(){
+        return isDisplayed(spanAccountTitle);
     }
+    public String getAccountTitleText(){
+        return find(spanAccountTitle).getText();
+    }
+
 
 }
