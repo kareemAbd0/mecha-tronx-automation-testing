@@ -54,7 +54,8 @@ public class LoginRegisterPopUp extends BasePage{
     }
 
     public String getErrorText(){
-        return getText(LoginError);
+        String errorText = getText(LoginError);
+        return errorText;
     }
 
 

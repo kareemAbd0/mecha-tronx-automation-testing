@@ -89,7 +89,7 @@ public class RegistrationTests {
 
     @Test
     void testAlreadyRegisteredEmail() {
-        JsonNode alreadyRegisteredUser = registrationData.get("alreadyRegisteredUser");
+        JsonNode alreadyRegisteredUser = registrationData.get("alreadyRegisteredUserWithEmail");
         String email = alreadyRegisteredUser.get("email").asText();
         String password = alreadyRegisteredUser.get("password").asText();
         loginRegisterPopUp.registerWith(email, password);

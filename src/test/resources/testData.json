@@ -24,20 +24,31 @@
 
   "login": {
 
-    "alreadyRegisteredUser": {
+    "alreadyRegisteredUserWithEmail": {
       "email": "t6uvw6ua@mozmail.com",
       "password": ".ftqR3Yy2rW4kT!",
-      "description": "A user who is already registered, to test valid login"
+      "description": "A user login with email who is already registered, to test valid login"
+    },
+    "alreadyRegisteredUserWithUsername": {
+      "username": "t6uvw6ua",
+      "password": ".ftqR3Yy2rW4kT!",
+      "description": "A user login with username who is already registered, to test valid login"
     },
     "incorrectPasswordForRegisteredEmail": {
       "email": "t6uvw6ua@mozmail.com",
       "password": ".ftqR3Yy2sssrW4kT!",
       "description": "logging in with an incorrect password associated with a registered email"
-
+    },
+    "nonRegisteredEmail": {
+      "email": "nonexisting@email.com ",
+      "password": "Password@^9876",
+      "description": "login with a non registered email"
+    },
+    "nonRegisteredUsername": {
+      "username": "nonexisting",
+      "password": "Password@^9876",
+      "description": "login with a non registered username"
     }
-
-
-
   }
 
 }
