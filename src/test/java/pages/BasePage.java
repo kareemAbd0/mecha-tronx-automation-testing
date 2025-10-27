@@ -1,6 +1,5 @@
 package pages;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import static java.lang.invoke.MethodHandles.lookup;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -15,16 +14,18 @@ public class BasePage {
 
     static final Logger log = getLogger(lookup().lookupClass());
     WebDriver driver;
-    WebDriverWait wait;
+    WebDriverWait myWait;
     int timeout = 5;
-
+    WebDriverWait homeLoaderWait;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
         //short implicit wait
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         //explicit wait
-        wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        myWait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        //loading the home page in some occasions is painfully slow
+         homeLoaderWait = new WebDriverWait(driver, Duration.ofSeconds(40));
     }
 
 
@@ -77,7 +78,7 @@ public class BasePage {
 
     public boolean isDisplayed(ExpectedCondition<?> expectedCondition) {
         try {
-            wait.until(expectedCondition);
+            myWait.until(expectedCondition);
         } catch (TimeoutException e) {
             log.warn("Timeout of {} wait for element ", timeout);
             return false;

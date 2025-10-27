@@ -1,13 +1,11 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage extends BasePage{
+    private final By loader = By.className("page-loader-spin");
     private final By loginRegisterButton = By.xpath("//a[@title='Login']");
     By spanAccountTitle = By.className("header-account-title");
 
@@ -22,6 +20,7 @@ public class HomePage extends BasePage{
 
     public void visitPage(){
         visit("https://mecha-tronx.com/");
+        homeLoaderWait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
     }
 
     public void loginRegisterPopUp(){

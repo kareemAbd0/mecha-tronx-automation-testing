@@ -5,9 +5,12 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginRegisterPopUp extends BasePage{
+
+    private final By loader = By.className("page-loader-spin");
     private final By inputRegPassword = By.id("reg_password");
     private final By inputRegEmail = By.id("reg_email");
     private final By buttonRegister = By.name("register");
+
 
     private final By inputUsername = By.id("username");
     private final By inputPassword = By.id("password");
@@ -25,6 +28,7 @@ public class LoginRegisterPopUp extends BasePage{
 
     public void visitPage(){
         visit("https://mecha-tronx.com/");
+        homeLoaderWait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
         click(By.xpath("//a[@title='Login']"));
     }
 
@@ -43,7 +47,7 @@ public class LoginRegisterPopUp extends BasePage{
     public boolean isRegisterSuccessful(){
         try {
             //upon success, the register-login popUp will disappear returning to home page
-            return wait.until(ExpectedConditions.invisibilityOfElementLocated(buttonRegister));
+            return myWait.until(ExpectedConditions.invisibilityOfElementLocated(buttonRegister));
         }catch (TimeoutException e){
             return false;
         }
