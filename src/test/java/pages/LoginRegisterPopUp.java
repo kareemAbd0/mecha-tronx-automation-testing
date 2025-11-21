@@ -1,8 +1,13 @@
 package pages;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+import java.util.Arrays;
 
 public class LoginRegisterPopUp extends BasePage{
 
@@ -10,6 +15,7 @@ public class LoginRegisterPopUp extends BasePage{
     private final By inputRegPassword = By.id("reg_password");
     private final By inputRegEmail = By.id("reg_email");
     private final By buttonRegister = By.name("register");
+
 
 
     private final By inputUsername = By.id("username");
@@ -20,6 +26,7 @@ public class LoginRegisterPopUp extends BasePage{
 
     public LoginRegisterPopUp(WebDriver driver){
         super(driver);
+        explicitWait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
     }
     public LoginRegisterPopUp(WebDriver driver, int timeout){
         this(driver);
@@ -27,9 +34,10 @@ public class LoginRegisterPopUp extends BasePage{
     }
 
     public void visitPage(){
+     By popUp =  By.xpath("//a[@title='Login']");
         visit("https://mecha-tronx.com/");
-        homeLoaderWait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
-        click(By.xpath("//a[@title='Login']"));
+        explicitWait.until(ExpectedConditions.elementToBeClickable(popUp));
+        click(popUp);
     }
 
     public void registerWith(String email, String password){
@@ -47,8 +55,20 @@ public class LoginRegisterPopUp extends BasePage{
     public boolean isRegisterSuccessful(){
         try {
             //upon success, the register-login popUp will disappear returning to home page
-            return myWait.until(ExpectedConditions.invisibilityOfElementLocated(buttonRegister));
+            return explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(buttonRegister));
         }catch (TimeoutException e){
+            return false;
+        }
+    }
+
+    public boolean isResisterDisabled(){
+        try {
+            String classes = driver.findElement(buttonRegister).getAttribute("class");
+            if (classes == null || classes.trim().isEmpty()) {
+                return false;
+            }
+            return Arrays.asList(classes.trim().split("\\s+")).contains("disabled");
+        } catch (NoSuchElementException e) {
             return false;
         }
     }
@@ -58,8 +78,7 @@ public class LoginRegisterPopUp extends BasePage{
     }
 
     public String getErrorText(){
-        String errorText = getText(LoginError);
-        return errorText;
+        return getText(LoginError);
     }
 
 

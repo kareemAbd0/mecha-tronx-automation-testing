@@ -26,12 +26,12 @@ public class BaseTest {
     }
 
     @BeforeMethod
-    public void initializeBrowser() {
+    public void initializeBrowser(){
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
 
         //EAGER is to just return after DOM content loads instead of full loading
-//         options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
         driver = new ChromeDriver(options);
 
     }

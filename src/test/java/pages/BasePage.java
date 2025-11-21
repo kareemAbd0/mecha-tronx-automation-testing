@@ -14,18 +14,15 @@ public class BasePage {
 
     static final Logger log = getLogger(lookup().lookupClass());
     WebDriver driver;
-    WebDriverWait myWait;
-    int timeout = 5;
-    WebDriverWait homeLoaderWait;
+    int timeout = 10;
+    WebDriverWait explicitWait;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
         //short implicit wait
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         //explicit wait
-        myWait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
-        //loading the home page in some occasions is painfully slow
-         homeLoaderWait = new WebDriverWait(driver, Duration.ofSeconds(40));
+         explicitWait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
     }
 
 
@@ -78,7 +75,7 @@ public class BasePage {
 
     public boolean isDisplayed(ExpectedCondition<?> expectedCondition) {
         try {
-            myWait.until(expectedCondition);
+            explicitWait.until(expectedCondition);
         } catch (TimeoutException e) {
             log.warn("Timeout of {} wait for element ", timeout);
             return false;

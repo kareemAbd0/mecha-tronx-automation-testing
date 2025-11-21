@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -12,6 +13,7 @@ import pages.LoginRegisterPopUp;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -21,16 +23,20 @@ public class RegistrationTests extends BaseTest {
 
     protected LoginRegisterPopUp loginRegisterPopUp;
 
+    WebDriverWait  wait;
+
     @BeforeClass
     public void loadTestData() throws IOException {
         registrationData = testData.get("registration");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
 
     @BeforeMethod
-    public void setup() {
+    public void setup() throws InterruptedException {
         loginRegisterPopUp = new LoginRegisterPopUp(driver);
         loginRegisterPopUp.visitPage();
+
     }
 
 
@@ -76,7 +82,7 @@ public class RegistrationTests extends BaseTest {
         String email = weakPasswordUser.get("email").asText();
         String password = weakPasswordUser.get("password").asText();
         loginRegisterPopUp.registerWith(email, password);
-        assertThat(loginRegisterPopUp.isRegisterSuccessful()).isFalse();
+        assertThat(loginRegisterPopUp.isResisterDisabled()).isTrue();
     }
 
     @Test

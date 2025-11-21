@@ -3,6 +3,9 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class HomePage extends BasePage{
     private final By loader = By.className("page-loader-spin");
@@ -14,6 +17,7 @@ public class HomePage extends BasePage{
 
     public HomePage(WebDriver driver){
         super(driver);
+        explicitWait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
     }
 
     public HomePage(WebDriver driver, int timeout){
@@ -23,7 +27,7 @@ public class HomePage extends BasePage{
 
     public void visitPage(){
         visit("https://mecha-tronx.com/");
-        homeLoaderWait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+        explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
     }
 
     public void clickProductPage(){

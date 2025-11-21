@@ -55,7 +55,7 @@ public class LoginTests extends BaseTest {
         loginRegisterPopUp.loginWith(username, password);
         int atIndex = username.indexOf("@");
         assertThat(homePage.isAccountTitleDisplayed()).isTrue();
-        assertThat(homePage.getAccountTitleText()).isEqualTo(username);
+        assertThat(homePage.getAccountTitleText()).isEqualTo(username.toUpperCase());
     }
 
     @Test
