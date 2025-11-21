@@ -15,33 +15,25 @@ import java.io.IOException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class RegistrationTests {
+public class RegistrationTests extends BaseTest {
 
     private static JsonNode registrationData;
 
     protected LoginRegisterPopUp loginRegisterPopUp;
-    private WebDriver driver;
 
     @BeforeClass
-    public static void loadTestData() throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File("src/test/resources/testData.json");
-        JsonNode testData = objectMapper.readTree(file);
+    public void loadTestData() throws IOException {
         registrationData = testData.get("registration");
     }
 
 
     @BeforeMethod
     public void setup() {
-        driver = WebDriverManager.getInstance("chrome").create();
         loginRegisterPopUp = new LoginRegisterPopUp(driver);
         loginRegisterPopUp.visitPage();
     }
 
-    @AfterMethod
-    public void tearDown() {
-        driver.quit();
-    }
+
 
 //    @Test
 //    public void testValidRegister() {
@@ -89,7 +81,7 @@ public class RegistrationTests {
 
     @Test
     void testAlreadyRegisteredEmail() {
-        JsonNode alreadyRegisteredUser = registrationData.get("alreadyRegisteredUserWithEmail");
+        JsonNode alreadyRegisteredUser = registrationData.get("alreadyRegisteredUser");
         String email = alreadyRegisteredUser.get("email").asText();
         String password = alreadyRegisteredUser.get("password").asText();
         loginRegisterPopUp.registerWith(email, password);

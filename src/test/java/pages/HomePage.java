@@ -7,7 +7,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class HomePage extends BasePage{
     private final By loader = By.className("page-loader-spin");
     private final By loginRegisterButton = By.xpath("//a[@title='Login']");
-    By spanAccountTitle = By.className("header-account-title");
+    private final By spanAccountTitle = By.className("header-account-title");
+    By linkAllProducts = By.xpath("//a[@class='nav-top-link' and @href='https://mecha-tronx.com/shop/']");
+
+
 
     public HomePage(WebDriver driver){
         super(driver);
@@ -21,6 +24,10 @@ public class HomePage extends BasePage{
     public void visitPage(){
         visit("https://mecha-tronx.com/");
         homeLoaderWait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+    }
+
+    public void clickProductPage(){
+        click(linkAllProducts);
     }
 
     public void loginRegisterPopUp(){

@@ -49,6 +49,17 @@
       "password": "Password@^9876",
       "description": "login with a non registered username"
     }
+  },
+  "checkoutForm": {
+    "FirstName": "Jori",
+    "LastName": "Kimberly",
+    "StreetAddress": "Delayed Street 1957, Yarranlea, Estonia, 202436",
+    "Town/City": "Yarranlea",
+    "State/County" : "Yarranlea",
+    "Phone": "0123456789",
+    "EmailAddress" : "taressa_deforget9cu@blocks.ws"
+
   }
+
 
 }

@@ -16,32 +16,24 @@ import java.io.IOException;
 import pages.HomePage;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LoginTests {
+public class LoginTests extends BaseTest {
     private static JsonNode loginData;
     protected LoginRegisterPopUp loginRegisterPopUp;
-    private WebDriver driver;
     protected HomePage homePage;
 
+
     @BeforeClass
-    public static void loadTestData() throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File("src/test/resources/testData.json");
-        JsonNode testData = objectMapper.readTree(file);
+    public void loadTestData() throws IOException {
         loginData = testData.get("login");
     }
 
     @BeforeMethod
     public void setup() {
-        driver = WebDriverManager.getInstance("chrome").create();
         loginRegisterPopUp = new LoginRegisterPopUp(driver);
         loginRegisterPopUp.visitPage();
         homePage = new HomePage(driver);
     }
 
-    @AfterMethod
-    public void tearDown(){
-        driver.quit();
-    }
 
     @Test
     public void testValidLoginWithEmail() {
@@ -52,7 +44,7 @@ public class LoginTests {
         int atIndex = email.indexOf("@");
         String username =  email.substring(0, atIndex);
         assertThat(homePage.isAccountTitleDisplayed()).isTrue();
-        assertThat(homePage.getAccountTitleText()).isEqualTo(username);
+        assertThat(homePage.getAccountTitleText()).isEqualTo(username.toUpperCase());
     }
 
     @Test
