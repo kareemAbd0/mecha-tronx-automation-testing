@@ -1,8 +1,5 @@
 package pages;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -24,6 +21,10 @@ public class LoginRegisterPopUp extends BasePage{
 
     private final By LoginError = By.cssSelector("div.message-container.alert-color");
 
+
+    private final By showPasswordButton  = By.cssSelector("button[aria-describedby^='reg']");
+
+
     public LoginRegisterPopUp(WebDriver driver){
         super(driver);
         explicitWait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
@@ -44,6 +45,19 @@ public class LoginRegisterPopUp extends BasePage{
         type(inputRegEmail, email);
         type(inputRegPassword, password);
         click(buttonRegister);
+    }
+
+    public void fillRegistrationEmail(String email){
+        type(inputRegEmail, email);
+    }
+
+    public void fillRegistrationPassword(String password){
+        type(inputRegPassword, password);
+    }
+
+    public void clickShowPassword(){
+        click(showPasswordButton);
+
     }
 
     public void loginWith(String email, String password){
@@ -74,12 +88,18 @@ public class LoginRegisterPopUp extends BasePage{
     }
 
     public boolean isLoginErrorDisplayed(){
-        return isDisplayed(LoginError);
+        try {
+            explicitWait.until(ExpectedConditions.visibilityOfElementLocated(LoginError));
+            return true;
+     }catch (TimeoutException e){
+            return false;
+        }
     }
 
     public String getErrorText(){
         return getText(LoginError);
     }
+
 
 
 }

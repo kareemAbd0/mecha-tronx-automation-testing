@@ -1,21 +1,21 @@
 package tests;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
+import org.assertj.core.api.Assertions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.LoginRegisterPopUp;
+import support.listeners.TestListeners;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+@Listeners(TestListeners.class)
 
 public class RegistrationTests extends BaseTest {
 
@@ -60,7 +60,7 @@ public class RegistrationTests extends BaseTest {
     }
 
     @Test
-    public void testIsEmailRequired() {
+    public void testIsEmailRequired() throws InterruptedException {
         JsonNode validUser = registrationData.get("validUser");
         String password = validUser.get("password").asText();
         loginRegisterPopUp.registerWith("", password);
@@ -77,11 +77,15 @@ public class RegistrationTests extends BaseTest {
     }
 
     @Test
-    void testWeakPassword() {
+    void testWeakPassword(){
         JsonNode weakPasswordUser = registrationData.get("userWithWeakPassword");
         String email = weakPasswordUser.get("email").asText();
         String password = weakPasswordUser.get("password").asText();
-        loginRegisterPopUp.registerWith(email, password);
+        loginRegisterPopUp.fillRegistrationEmail(email);
+        loginRegisterPopUp.fillRegistrationPassword(password);
+        loginRegisterPopUp.clickShowPassword();
+
+
         assertThat(loginRegisterPopUp.isResisterDisabled()).isTrue();
     }
 
@@ -91,7 +95,8 @@ public class RegistrationTests extends BaseTest {
         String email = alreadyRegisteredUser.get("email").asText();
         String password = alreadyRegisteredUser.get("password").asText();
         loginRegisterPopUp.registerWith(email, password);
-        assertThat(loginRegisterPopUp.isRegisterSuccessful()).isFalse();
+        Assertions.assertThat(loginRegisterPopUp.isLoginErrorDisplayed()).isTrue();
+        Assertions.assertThat(loginRegisterPopUp.getErrorText()).isEqualTo("Error: An account is already registered with "+email+". Please log in or use a different email address.");
     }
 
 }

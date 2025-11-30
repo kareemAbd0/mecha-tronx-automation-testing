@@ -2,19 +2,22 @@ package tests;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.ProductsPage;
 import pages.CheckoutPage;
+import support.listeners.TestListeners;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Listeners(TestListeners.class)
 public class BuyTests extends BaseTest {
 
 
     private HomePage homePage;
-    protected ProductsPage productsPage;
-    protected CheckoutPage checkoutPage;
+    private ProductsPage productsPage;
+    private CheckoutPage checkoutPage;
 
     @BeforeMethod
     public void setup() {
@@ -59,9 +62,6 @@ public class BuyTests extends BaseTest {
     @Test
     public void testIfCartTotalIsCorrect() throws InterruptedException {
 
-        HomePage homePage = new HomePage(driver,10);
-        ProductsPage productsPage = new ProductsPage(driver,10);
-        CheckoutPage checkoutPage = new CheckoutPage(driver);
 
         homePage.visitPage();
         homePage.clickProductPage();
@@ -72,11 +72,10 @@ public class BuyTests extends BaseTest {
 
         productsPage.clickProduct(2);
         productsPage.addToPriceTotal();
-        productsPage.addToCart("Black");
+        productsPage.addToCart("Blue");
 
         productsPage.hoverToMiniCart();
         productsPage.checkout();
-        int debug = ProductsPage.getSumOfPrices();
 
         assertThat(ProductsPage.getSumOfPrices()).isEqualTo(checkoutPage.getSubTotal());
 

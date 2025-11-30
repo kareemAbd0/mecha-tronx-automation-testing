@@ -4,18 +4,18 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.LoginRegisterPopUp;
 
 import java.io.File;
 import java.io.IOException;
 
 import pages.HomePage;
+import support.listeners.TestListeners;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Listeners(TestListeners.class)
 public class LoginTests extends BaseTest {
     private static JsonNode loginData;
     protected LoginRegisterPopUp loginRegisterPopUp;
