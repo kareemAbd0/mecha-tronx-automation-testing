@@ -48,7 +48,7 @@ public class TestListeners implements ITestListener {
         TakesScreenshot ts = (TakesScreenshot) driver;
         File screenshot = ts.getScreenshotAs(OutputType.FILE);
         log.debug("Screenshot created on {}", screenshot);
-        Path destination = Paths.get("src/test/resources/screenshots", testName + ".png");
+        Path destination = Paths.get("target/screenshots", testName + ".png");
         log.info("Screenshot destination: {}", destination);
         Files.move(screenshot.toPath(), destination, REPLACE_EXISTING);
         log.debug("Screenshot moved to {}", destination);
