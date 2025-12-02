@@ -12,6 +12,8 @@ public class HomePage extends BasePage{
     private final By loginRegisterButton = By.xpath("//a[@title='Login']");
     private final By spanAccountTitle = By.className("header-account-title");
     By linkAllProducts = By.xpath("//a[@class='nav-top-link' and @href='https://mecha-tronx.com/shop/']");
+    By productSearchField = By.id("woocommerce-product-search-field-0");
+    By searchSubmitButton = By.xpath("//button[@value='Search']");
 
 
 
@@ -36,6 +38,14 @@ public class HomePage extends BasePage{
 
     public void loginRegisterPopUp(){
         click(loginRegisterButton);
+    }
+
+    public void searchForProduct(String productName){
+        type(productSearchField, productName);
+    }
+
+    public void clickSearchButton(){
+        click(searchSubmitButton);
     }
 
 

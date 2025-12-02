@@ -1,5 +1,7 @@
 ### Maven Build ###
 target/
+allure-results/
+.allure/
 *.jar
 *.war
 *.ear

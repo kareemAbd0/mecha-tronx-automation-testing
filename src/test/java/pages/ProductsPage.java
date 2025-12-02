@@ -17,8 +17,8 @@ public class ProductsPage extends BasePage{
     By disabledAddToCartButton = By.cssSelector("button.single_add_to_cart_button.disabled");
     By miniCartButton = By.xpath("//a[contains(@class,'header-cart-link') and contains(@href,'https://mecha-tronx.com/cart/')]");
     By checkoutHref = By.xpath("//a[contains(@href, 'https://mecha-tronx.com/checkout/')]");
-
     By labelPrice= By.xpath("(//span[contains(text(),'EGP')])/ancestor::bdi");
+    By firstProductName = By.xpath("(//a[contains(@class,'woocommerce-loop-product__link')])[1]");
     private static int sumOfPrices;
 
     Actions actions = new Actions(driver);
@@ -87,6 +87,10 @@ public class ProductsPage extends BasePage{
         sumOfPrices+= (tempPrice);
 
 
+    }
+
+    public String getFirstProductName(){
+        return getText(firstProductName);
     }
 
     public void checkout(){

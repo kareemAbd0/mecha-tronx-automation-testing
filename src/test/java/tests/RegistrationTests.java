@@ -98,5 +98,4 @@ public class RegistrationTests extends BaseTest {
         Assertions.assertThat(loginRegisterPopUp.isLoginErrorDisplayed()).isTrue();
         Assertions.assertThat(loginRegisterPopUp.getErrorText()).isEqualTo("Error: An account is already registered with "+email+". Please log in or use a different email address.");
     }
-
 }

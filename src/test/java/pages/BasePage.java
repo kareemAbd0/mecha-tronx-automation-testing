@@ -38,10 +38,12 @@ public class BasePage {
         driver.quit();
     }
     public WebElement find(By element){
+        explicitWait.until(ExpectedConditions.presenceOfElementLocated(element));
         return driver.findElement(element);
     }
 
     public void click(WebElement element) {
+        explicitWait.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
     }
 
@@ -50,14 +52,17 @@ public class BasePage {
     }
 
     public void type(WebElement element, String text) {
+        explicitWait.until(ExpectedConditions.visibilityOf(element));
         element.sendKeys(text);
     }
+
 
     public void type(By element, String text) {
         type(find(element), text);
     }
 
     public String getText(WebElement element) {
+        explicitWait.until(ExpectedConditions.visibilityOf(element));
        return element.getText();
     }
 

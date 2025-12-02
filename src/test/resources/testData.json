@@ -60,8 +60,11 @@
     "EmailAddress" : "taressa_deforget9cu@blocks.ws"
   },
 
-  "productSearch":{
-
+  "productSearch": {
+    "exactMatch": "resistor",
+    "partialMatch": "resis",
+    "caseSensitiveMatch": "Resistor",
+    "pluralMatch": "resistors"
   }
 
 
