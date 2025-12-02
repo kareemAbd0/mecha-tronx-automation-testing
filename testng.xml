@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Mecha-Tronx Web Automation Test Suite" verbose="1" >
+    <listeners>
+        <listener class-name="support.listeners.TestListeners"/>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
+    <test name="All Tests">
+        <classes>
+            <class name="tests.BuyTests"/>
+            <class name="tests.LoginTests"/>
+            <class name="tests.ProductSearchTests"/>
+            <class name="tests.RegistrationTests"/>
+        </classes>
+    </test>
+</suite>
